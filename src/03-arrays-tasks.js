@@ -545,7 +545,7 @@ function distinct( arr ) {
  */
 function group( array, keySelector, valueSelector ) {
   let m = Map.groupBy(array, keySelector);
-  return m.map((item, key) => {
+  return m.keys().map((item, key) => {
    m.set(
      key,
      item.reduce(
