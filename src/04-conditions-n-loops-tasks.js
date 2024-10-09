@@ -263,8 +263,8 @@ function reverseInteger(num) {
   let result = 0;
   let temp = num;
   while (temp > 0) {
-    result = result * 10 + (num % 10);
-    temp = Math.floor(num / 10);
+    result = result * 10 + (temp % 10);
+    temp = Math.floor(temp / 10);
   }
   return result;
 }
@@ -375,9 +375,9 @@ function isBracketsBalanced(str) {
         found = true;
       }
     }
-  } while (str.length > 0 && found);
+  } while (temp.length > 0 && found);
 
-  return str.length === 0;
+  return temp.length === 0;
 }
 
 
