@@ -545,17 +545,16 @@ function distinct( arr ) {
  */
 function group( array, keySelector, valueSelector ) {
   let m = Map.groupBy(array, keySelector);
-  return m.keys().map((item, key) => {
-   m.set(
-     key,
-     item.reduce(
-       (acc, item) => {
-         acc.push(valueSelector(item));
-         return acc;
-       }, []
-     )
-   );
-  });
+  return m.keys().reduce((acc, item) => {
+    let entry = m.get(item);
+    let arr = entry.reduce((acc, item) => {
+      acc.push(valueSelector(item));
+      return acc;
+    }, []);
+    acc.set(item, arr);
+
+    return acc;
+  }, new Map());
 }
 
 
@@ -593,13 +592,11 @@ function selectMany( arr, childrenSelector ) {
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
 function getElementByIndexes( arr, indexes ) {
-  const layerCount = indexes.length;
-  let layerIndex = 0;
-  let nestedArr = arr;
-  while (layerIndex < layerCount-1) {
-    nestedArr = nestedArr[indexes[layerIndex++]];
+  let result = arr[indexes[0]];
+  if (indexes.length > 1) {
+    return getElementByIndexes(result, indexes.slice(1))
   }
-  return nestedArr[indexes[layerCount - 1]];
+  return result;
 }
 
 
