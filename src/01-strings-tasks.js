@@ -66,7 +66,8 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-  return value.replace("Hello, ", "").slice(0, -1);
+  return value.replace('Hello, ', '')
+    .slice(0, -1);
 }
 
 
@@ -111,7 +112,7 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 function repeatString(value, count) {
-  return value.repeat(count);
+  return value.repeat(+count);
 }
 
 /**
@@ -176,7 +177,7 @@ function convertToUpperCase(str) {
  *   'info@gmail.com' => ['info@gmail.com']
  */
 function extractEmails(str) {
-  return str.split(";");
+  return str.split(';');
 }
 
 /**
@@ -205,7 +206,7 @@ function extractEmails(str) {
 function getRectangleString(width, height) {
   let result = '';
 
-  for (let row = 0; row < height; row++) {
+  for (let row = 0; row < height; row += 1) {
     switch (row) {
       case 0:
         result += '┌';
@@ -217,8 +218,8 @@ function getRectangleString(width, height) {
         result += '│';
     }
 
-    for (let col = 1; col < width - 1; col++) {
-      result += row === 0 || row === height-1 ? '─' : ' ';
+    for (let col = 1; col < width - 1; col += 1) {
+      result += row === 0 || row === height - 1 ? '─' : ' ';
     }
 
     switch (row) {
@@ -253,15 +254,17 @@ function getRectangleString(width, height) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13( str ) {
+function encodeToRot13(str) {
   const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
   const oneCaseAlphabetCharCount = Math.floor(alphabet.length / 2);
   let result = '';
   let charIndex;
-  for (let char of str) {
+  for (let i = 0; i < str.length; i += 1) {
+    const char = str[i];
     charIndex = alphabet.indexOf(char);
     if (charIndex !== -1) {
-      charIndex = (charIndex + 13) % oneCaseAlphabetCharCount + Math.floor(charIndex / oneCaseAlphabetCharCount) * oneCaseAlphabetCharCount;
+      charIndex = ((charIndex + 13) % oneCaseAlphabetCharCount)
+        + (Math.floor(charIndex / oneCaseAlphabetCharCount) * oneCaseAlphabetCharCount);
       result += alphabet[charIndex];
     } else {
       result += char;
@@ -283,7 +286,7 @@ function encodeToRot13( str ) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString( value ) {
+function isString(value) {
   return typeof value === 'string' || value instanceof String;
 }
 
@@ -312,9 +315,9 @@ function isString( value ) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId( value ) {
-  const types = ['♣','♦','♥','♠'];
-  const nums = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+function getCardId(value) {
+  const types = ['♣', '♦', '♥', '♠'];
+  const nums = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
   const numCount = nums.length;
 
   if (value.length >= 2) {
